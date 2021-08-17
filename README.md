@@ -1,6 +1,6 @@
-# dapp
+# Tezos DApp
 
-A new Flutter project.
+A decentralized application created for the purpose of participating in TEZASIA hackathon.
 
 ## Getting Started
 
