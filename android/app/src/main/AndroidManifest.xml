@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.dapp">
+    package="com.raunak.onlineclassroom">
    <application
         android:label="dapp"
         android:icon="@mipmap/ic_launcher">

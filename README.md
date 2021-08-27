@@ -1,6 +1,6 @@
-# Tezos DApp
+# Online Classroom
 
-A decentralized application created for the purpose of participating in TEZASIA hackathon.
+A new online classroom application in Flutter.
 
 ## Getting Started
 
