@@ -1,4 +1,4 @@
-package com.example.dapp
+package com.raunak.onlineclassroom
 
 import io.flutter.embedding.android.FlutterActivity
 
