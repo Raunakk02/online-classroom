@@ -1,4 +1,4 @@
-package com.raunak.onlineclassroom
+package com.vishnuworld.classroom
 
 import io.flutter.embedding.android.FlutterActivity
 

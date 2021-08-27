@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "873334257679",
+    "project_id": "classroom-259c2",
+    "storage_bucket": "classroom-259c2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:873334257679:android:06b8b22daa856d311c0b7a",
+        "android_client_info": {
+          "package_name": "com.vishnuworld.classroom"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "873334257679-1pqfna6uvjpjrhf3u1s5j77j1bcaem3a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vishnuworld.classroom",
+            "certificate_hash": "9f9a501a359e572261229babc6ee4fa9fd73366e"
+          }
+        },
+        {
+          "client_id": "873334257679-4fmedhmnklkmlh05ipp22g6r8qv1rgt2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlDeOhjg8kjYVUfBrBWUajL6-xCbXDFLE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "873334257679-4fmedhmnklkmlh05ipp22g6r8qv1rgt2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
