@@ -1,8 +1,6 @@
-import 'package:dapp/screens/screens.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:dapp/utils/init_dynamic_links.dart'
-// if (dart.library.html) 'package:dapp/utils/init_dl_web.dart';
 import 'package:flutter/material.dart';
+import '../screens/screens.dart';
 
 class AuthState extends StatefulWidget {
   const AuthState({Key? key}) : super(key: key);

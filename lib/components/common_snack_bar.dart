@@ -1,5 +1,5 @@
-import 'package:dapp/utils/colors.dart';
-import 'package:dapp/utils/globals.dart';
+import '../utils/colors.dart';
+import '../utils/globals.dart';
 import 'package:flutter/material.dart';
 
 SnackBar commonSnackBar(String text) => SnackBar(

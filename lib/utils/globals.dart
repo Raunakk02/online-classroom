@@ -1,10 +1,11 @@
 import 'dart:math';
 import 'dart:ui' show window;
 
-import 'package:dapp/utils/colors.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../utils/colors.dart';
 
 extension GlobalValue on num {
   double get w => (Globals.screenWidth * this) / 100;
