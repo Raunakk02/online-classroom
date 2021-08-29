@@ -7,6 +7,7 @@ import 'loading_dialog.dart';
 class FutureDialog<T> extends StatelessWidget {
   FutureDialog({
     required this.future,
+    this.autoClose = false,
     this.loadingText = 'Loading',
     Widget Function(T? res)? hasData,
     Widget Function(Object? error)? hasError,
@@ -15,6 +16,7 @@ class FutureDialog<T> extends StatelessWidget {
 
   final Future<T> future;
   final String loadingText;
+  final bool autoClose;
   final Widget Function(Object? error)? hasError;
 
   ///executes when either future is done with no error or returns data.
@@ -35,6 +37,10 @@ class FutureDialog<T> extends StatelessWidget {
         if (snapshot.hasData ||
             (snapshot.connectionState == ConnectionState.done &&
                 !snapshot.hasError)) {
+          if (autoClose && hasData == null)
+            WidgetsBinding.instance!.addPostFrameCallback((_) {
+              Navigator.pop(context);
+            });
           if (hasData != null)
             return hasData!(snapshot.data);
           else

@@ -10,6 +10,8 @@ class JoinClassScreen extends StatefulWidget {
 }
 
 class _JoinClassScreenState extends State<JoinClassScreen> {
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,40 +26,35 @@ class _JoinClassScreenState extends State<JoinClassScreen> {
           'Join Class',
           style: Globals.kHeading1Style,
         ),
-        actions: [
-          ElevatedButton(
-            onPressed: () {
-              //TODO: implement join class functionality
-            },
-            child: Text(
-              'Join',
-              style: Globals.kBodyText1Style,
-            ),
-          ),
-        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
           padding: Globals.kScreenPadding * 1.8,
-          child: Column(
-            children: [
-              Text(
-                'Ask your teacher for the class code, then enter it here.',
-                style: Globals.kBodyText1Style,
-              ),
-              Globals.kSizedBox,
-              TextField(
-                decoration: InputDecoration(
-                  labelText: 'Class Code',
-                  filled: true,
-                  fillColor: ColorsUtils.kElevationColor,
-                  border: OutlineInputBorder(),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                Text(
+                  'Ask your teacher for the class code, then enter it here.',
+                  style: Globals.kBodyText1Style,
                 ),
-              ),
-            ],
+                Globals.kSizedBox,
+                TextFormField(
+                  decoration: InputDecoration(
+                    hintText: 'Class Code',
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
+      floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {},
+          label: Text(
+            'Join',
+            style: Globals.kBodyText3Style,
+          )),
     );
   }
 }

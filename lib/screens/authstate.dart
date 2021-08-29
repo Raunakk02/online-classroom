@@ -1,5 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:online_classroom/components/components.dart';
+import 'package:online_classroom/networks/app_user.dart';
+import 'package:online_classroom/objects/objects.dart';
 import '../screens/screens.dart';
 
 class AuthState extends StatefulWidget {
@@ -32,7 +36,15 @@ class _AuthStateState extends State<AuthState> {
   @override
   Widget build(BuildContext context) {
     if (user == null) return LoginScreen();
-    // return user!.emailVerified ? HomeScreen() : VerifyEmailScreen(user!);
-    return HomeScreen();
+    return LoadingScreen<AppUser?>(
+      future: AppUserNetworks.user,
+      func: (user) => user == null ? SignUpScreen() : HomeScreen(user),
+      errFunc: (e) {
+        if (e is PlatformException) {
+          if (e.code == 'not-signed-in') return LoginScreen();
+        }
+        return SignUpScreen();
+      },
+    );
   }
 }

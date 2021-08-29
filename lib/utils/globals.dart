@@ -49,9 +49,11 @@ abstract class Globals {
       );
 
   static final kInputDecorationTheme = InputDecorationTheme(
-    fillColor: ColorsUtils.kBackgroundColor,
+    fillColor: ColorsUtils.kElevationColor,
+    filled: true,
     border: OutlineInputBorder(
       borderSide: BorderSide.none,
+      borderRadius: kBorderRadius,
     ),
     hintStyle: kBodyText1Style,
   );
@@ -59,13 +61,6 @@ abstract class Globals {
   static final kSizedBox = SizedBox(
     height: Globals.screenWidth * 0.04,
   );
-
-  static kCustomDecoration(String label) => InputDecoration(
-        labelText: label,
-        filled: true,
-        fillColor: ColorsUtils.kElevationColor,
-        border: OutlineInputBorder(),
-      );
 
   static const kScreenPadding = const EdgeInsets.all(20);
 
@@ -105,4 +100,8 @@ abstract class Globals {
     },
     icon: Icon(Icons.chevron_left),
   );
+
+  static final String? Function(String?) kCommonValidator = (_) {
+    if (_?.isEmpty ?? true) return 'Please Enter Valid Name Here';
+  };
 }

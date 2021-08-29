@@ -18,7 +18,7 @@ class CommonAsyncSnapshotResponses<T> extends StatelessWidget {
       print(snapshot.error);
       return Center(child: Text("Some Error occurred"));
     }
-    if (!snapshot.hasData) return Center(child: Text("No Data Available"));
+    if (!snapshot.hasData) return Center(child: Text("Nothing Here!"));
     return builder == null ? Container() : builder!(snapshot.data!);
   }
 }

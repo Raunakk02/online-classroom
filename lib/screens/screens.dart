@@ -9,3 +9,4 @@ export 'home.dart';
 export 'join_class.dart';
 export 'login.dart';
 export 'verify_email.dart';
+export 'sign_up_screen.dart';
