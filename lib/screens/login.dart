@@ -1,9 +1,9 @@
-import 'package:dapp/utils/colors.dart';
+import '../utils/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_login/flutter_login.dart';
-import 'package:dapp/utils/globals.dart';
+import '../utils/globals.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -55,7 +55,7 @@ class LoginScreen extends StatelessWidget {
       if (e.code == 'weak-password') {
         return 'The password provided is too weak.';
       } else if (e.code == 'email-already-in-use') {
-        return 'The account already exists for that email.';
+        return 'The account already exists for this email.';
       }
     } catch (e) {
       print(e);

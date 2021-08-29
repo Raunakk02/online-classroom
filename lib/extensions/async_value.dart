@@ -1,7 +1,7 @@
-import 'package:dapp/utils/colors.dart';
+import '../utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:dapp/utils/globals.dart';
+import '../utils/globals.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 extension AsyncGlobal<T> on AsyncValue {

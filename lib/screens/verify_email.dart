@@ -1,5 +1,5 @@
-import 'package:dapp/components/loading_screen.dart';
-import 'package:dapp/utils/globals.dart';
+import '../components/loading_screen.dart';
+import '../utils/globals.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

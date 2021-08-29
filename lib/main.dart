@@ -1,9 +1,10 @@
-import 'package:dapp/utils/utils.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import './utils/utils.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         appBarTheme: AppBarTheme(
@@ -46,7 +48,7 @@ class MyApp extends StatelessWidget {
         primaryColorLight: ColorsUtils.kTextColor,
         backgroundColor: ColorsUtils.kBackgroundColor,
       ),
-      initialRoute: '/',
+      initialRoute: Routes.authState,
     ).modular();
   }
 }
