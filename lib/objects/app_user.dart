@@ -29,11 +29,5 @@ List<AppUser> appUserListFromJson(List<Map<String, dynamic>> json) {
 }
 
 List<Map<String, dynamic>> appUserListToJson(List<AppUser> users) {
-  return users
-      .map((e) => {
-            'uid': e.uid,
-            'email': e.email,
-            'classCodes': e.classCodes,
-          })
-      .toList();
+  return users.map((e) => e.toJson()).toList();
 }

@@ -31,3 +31,11 @@ class ClassGroup {
         'classCode': this.classCode,
       };
 }
+
+List<ClassGroup> classGroupsFromJson(List<Map<String, dynamic>> json) {
+  return json.map((e) => ClassGroup.fromJson(e)).toList();
+}
+
+List<Map<String, dynamic>> classGroupsToJson(List<ClassGroup> groups) {
+  return groups.map((e) => e.toJson()).toList();
+}
