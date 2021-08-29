@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
         primaryColorLight: ColorsUtils.kTextColor,
         backgroundColor: ColorsUtils.kBackgroundColor,
       ),
-      initialRoute: '/',
+      initialRoute: Routes.authState,
     ).modular();
   }
 }
