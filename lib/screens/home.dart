@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import '../utils/utils.dart';
@@ -38,6 +39,19 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Globals.kClassroomText,
+        actions: [
+          Padding(
+            padding: Globals.kScreenPadding * 0.4,
+            child: CircleAvatar(
+              backgroundColor: ColorsUtils.kElevationColor,
+              foregroundColor: ColorsUtils.kTextColor,
+              child: Text(
+                FirebaseAuth.instance.currentUser!.email![0],
+                style: Globals.kBodyText1Style,
+              ),
+            ),
+          ),
+        ],
       ),
       drawer: CustomDrawer(
         classes: [
