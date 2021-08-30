@@ -51,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ListTile(
               title: Text('Join Class'),
               onTap: () async {
-                await Modular.to.pushNamed(Routes.joinClass);
+                await Modular.to.pushNamed(Routes.joinClass, arguments: user);
                 _updateBody();
               },
             ),
@@ -86,13 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      drawer: CustomDrawer(
-        classes: [
-          'Ada',
-          'BCCS-2031',
-          'ISS',
-        ],
-      ),
+      drawer: CustomDrawer(),
       body: _body,
       floatingActionButton: FloatingActionButton(
         onPressed: () => _showOptions(context),

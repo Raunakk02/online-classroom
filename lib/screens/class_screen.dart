@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:online_classroom/objects/objects.dart';
 import 'package:online_classroom/screens/screens.dart';
 import 'package:online_classroom/utils/utils.dart';
 
 class ClassScreen extends StatefulWidget {
-  const ClassScreen({Key? key}) : super(key: key);
+  const ClassScreen(this._class, {Key? key}) : super(key: key);
+  final ClassGroup _class;
 
   @override
   _ClassScreenState createState() => _ClassScreenState();
@@ -18,11 +20,11 @@ class _ClassScreenState extends State<ClassScreen> {
 
   var currInd = 0;
 
-  final List<Widget> classScreens = [
-    ClassStreamScreen(),
-    ClassClassworkScreen(),
-    ClassPeopleScreen(),
-  ];
+  List<Widget> get classScreens => [
+        ClassStreamScreen(widget._class),
+        ClassClassworkScreen(widget._class),
+        ClassPeopleScreen(widget._class),
+      ];
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,7 @@ class _ClassScreenState extends State<ClassScreen> {
         title: currInd == 0
             ? null
             : Text(
-                'Class Name',
+                widget._class.name,
                 style: Globals.kHeading1Style,
               ),
       ),

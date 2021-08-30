@@ -7,10 +7,19 @@ abstract class AppUserNetworks {
   // final _firestore = FirebaseFirestore.instance;
   static final _users = FirebaseFirestore.instance.collection('users');
 
+  static Future<List<AppUser>> getUsers(List<String> uids) async {
+    final _futures = uids.map((uid) => getUser(uid));
+    return await Future.wait(_futures);
+  }
+
   static Future<AppUser?> get user async {
     final _user = FirebaseAuth.instance.currentUser;
     if (_user == null) throw PlatformException(code: 'not-signed-in');
-    final snapshot = await _users.doc(_user.uid).get();
+    return getUser(_user.uid);
+  }
+
+  static Future<AppUser> getUser(String uid) async {
+    final snapshot = await _users.doc(uid).get();
     final data = snapshot.data();
     if (data == null) throw PlatformException(code: 'user-does-not-exist');
     return AppUser.fromJson(data);

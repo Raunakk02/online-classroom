@@ -61,12 +61,14 @@ class _CreateClassScreenState extends State<CreateClassScreen> {
               children: [
                 Globals.kSizedBox,
                 TextFormField(
+                  style: Globals.kBodyText1Style,
                   controller: _className,
                   decoration: InputDecoration(hintText: 'Class Name'),
                   validator: Globals.kCommonValidator,
                 ),
                 Globals.kSizedBox,
                 TextFormField(
+                  style: Globals.kBodyText1Style,
                   controller: _sectionName,
                   decoration: InputDecoration(hintText: 'Section Name'),
                   validator: Globals.kCommonValidator,

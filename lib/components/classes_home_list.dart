@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:online_classroom/components/components.dart';
 import 'package:online_classroom/networks/class_group.dart';
 import 'package:online_classroom/objects/objects.dart';
+import 'package:online_classroom/utils/providers.dart';
 import 'package:random_color/random_color.dart';
 import '../utils/utils.dart';
 
-class ClassesHomeList extends StatefulWidget {
+class ClassesHomeList extends ConsumerStatefulWidget {
   const ClassesHomeList(this.user, {Key? key}) : super(key: key);
   final AppUser user;
 
@@ -14,7 +16,7 @@ class ClassesHomeList extends StatefulWidget {
   _ClassesHomeListState createState() => _ClassesHomeListState(user);
 }
 
-class _ClassesHomeListState extends State<ClassesHomeList> {
+class _ClassesHomeListState extends ConsumerState<ClassesHomeList> {
   late Future<List<ClassGroup>> _classes;
   AppUser user;
 
@@ -43,13 +45,15 @@ class _ClassesHomeListState extends State<ClassesHomeList> {
           return CommonAsyncSnapshotResponses(
             snapshot,
             builder: (List<ClassGroup> classes) {
+              ref.read(classesProvider).value = classes;
               return ListView.builder(
                 physics: BouncingScrollPhysics(),
                 itemCount: classes.length,
                 itemBuilder: (_, i) => InkWell(
                   borderRadius: Globals.kBorderRadius,
                   onTap: () {
-                    Modular.to.pushNamed(Routes.classScreen);
+                    Modular.to
+                        .pushNamed(Routes.classScreen, arguments: classes[i]);
                   },
                   child: Container(
                     margin: EdgeInsets.all(Globals.screenWidth * 0.03),
@@ -93,8 +97,20 @@ class _ClassesHomeListState extends State<ClassesHomeList> {
                           ),
                           PopupMenuButton<String>(
                             onSelected: (value) async {
+                              bool _updateList = false;
+                              String _message = '';
                               switch (value) {
                                 case 'unenroll':
+                                  await showDialog(
+                                    context: context,
+                                    builder: (_) => FutureDialog<void>(
+                                      future: ClassNetworks.unenroll(
+                                          user.uid, classes[i].classCode),
+                                      autoClose: true,
+                                    ),
+                                  );
+                                  _updateList = true;
+                                  _message = 'Successfully unrolled form class';
                                   break;
                                 case 'delete':
                                   await showDialog(
@@ -104,22 +120,25 @@ class _ClassesHomeListState extends State<ClassesHomeList> {
                                       autoClose: true,
                                     ),
                                   );
-                                  await showDialog(
-                                    context: context,
-                                    builder: (_) => FutureDialog<void>(
-                                      future: updateList(),
-                                      hasData: (_) => CommonAlertDialog(
-                                          'Successfully Deleted Class'),
-                                    ),
-                                  );
+                                  _updateList = true;
+                                  _message = 'Successfully deleted the class';
                                   break;
                               }
+                              if (_updateList)
+                                await showDialog(
+                                  context: context,
+                                  builder: (_) => FutureDialog<void>(
+                                    future: updateList(),
+                                    hasData: (_) => CommonAlertDialog(_message),
+                                  ),
+                                );
                             },
                             itemBuilder: (_) => [
-                              PopupMenuItem(
-                                value: 'unenroll',
-                                child: Text('Unenroll'),
-                              ),
+                              if (classes[i].students.contains(user.uid))
+                                PopupMenuItem(
+                                  value: 'unenroll',
+                                  child: Text('Unenroll'),
+                                ),
                               if (classes[i].teacherUid == user.uid)
                                 PopupMenuItem(
                                   value: 'delete',
