@@ -14,7 +14,6 @@ class CustomDrawer extends ConsumerStatefulWidget {
 }
 
 class _CustomDrawerState extends ConsumerState<CustomDrawer> {
-  // static final navigationKey = locator<NavigationService>().navigatorKey;
   List drawerItems = [];
 
   @override
@@ -37,7 +36,10 @@ class _CustomDrawerState extends ConsumerState<CustomDrawer> {
                 title: 'Classes',
                 subtitle: null,
                 onTap: () {
-                  Modular.to.pushNamedAndRemoveUntil('/', (_) => false);
+                  Modular.to.pushReplacementNamed(
+                    Routes.authState,
+                    forRoot: true,
+                  );
                 },
               ),
               DrawerListTile(
@@ -47,22 +49,10 @@ class _CustomDrawerState extends ConsumerState<CustomDrawer> {
                 onTap: () {},
               ),
               Divider(),
-              DrawerListTile(
-                leading: Icon(Icons.logout_rounded),
-                title: 'Logout',
-                subtitle: null,
-                onTap: FirebaseAuth.instance.signOut,
-              ),
               if (_classes.isNotEmpty) ...[
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Text("Enrolled"),
-                ),
-                DrawerListTile(
-                  leading: Icon(Icons.note_alt),
-                  title: 'To-do',
-                  subtitle: null,
-                  onTap: () {},
                 ),
                 ..._classes
                     .map((_class) => DrawerListTile(
@@ -75,7 +65,13 @@ class _CustomDrawerState extends ConsumerState<CustomDrawer> {
                         ))
                     .toList(),
                 Divider(),
-              ]
+              ],
+              DrawerListTile(
+                leading: Icon(Icons.logout_rounded),
+                title: 'Logout',
+                subtitle: null,
+                onTap: FirebaseAuth.instance.signOut,
+              ),
             ]),
           ),
         ],

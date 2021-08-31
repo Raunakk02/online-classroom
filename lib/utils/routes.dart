@@ -4,4 +4,5 @@ abstract class Routes {
   static const joinClass = '/join-class';
   static const createClass = '/create-class';
   static const classScreen = '/class-screen';
+  static const setDisplayNameScreen = '/set-display-name-screen';
 }

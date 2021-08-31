@@ -1,11 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:online_classroom/components/components.dart';
-import 'package:online_classroom/networks/app_user.dart';
+import 'package:online_classroom/networks/networks.dart';
 import 'package:online_classroom/objects/objects.dart';
-import 'package:online_classroom/screens/home.dart';
-import 'package:online_classroom/screens/login.dart';
-import 'package:online_classroom/utils/globals.dart';
+import 'package:online_classroom/screens/screens.dart';
+import 'package:online_classroom/utils/utils.dart';
 
 class SignUpScreen extends StatefulWidget {
   SignUpScreen({Key? key}) : super(key: key);
@@ -101,6 +100,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
     final _user = FirebaseAuth.instance.currentUser;
     if (_user == null)
       _screen = LoginScreen();
+    else if(_user.displayName == null)
+      _screen = SetDisplayName();
     else if ((_user.email?.isEmpty ?? false) &&
         (_user.displayName?.isEmpty ?? false))
       _screen = _signUpScreen(_user);

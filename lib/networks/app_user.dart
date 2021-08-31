@@ -18,6 +18,12 @@ abstract class AppUserNetworks {
     return getUser(_user.uid);
   }
 
+  static Future<void> assignDisplayNameToUser(String displayName) async{
+    if(FirebaseAuth.instance.currentUser == null)
+      return;
+    await FirebaseAuth.instance.currentUser!.updateDisplayName(displayName);
+  }
+
   static Future<AppUser> getUser(String uid) async {
     final snapshot = await _users.doc(uid).get();
     final data = snapshot.data();
