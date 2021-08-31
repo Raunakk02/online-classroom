@@ -13,5 +13,6 @@ class AppModule extends Module {
         ChildRoute(Routes.createClass,
             child: (_, __) => CreateClassScreen(__.data)),
         ChildRoute(Routes.classScreen, child: (_, __) => ClassScreen(__.data)),
+        ChildRoute(Routes.setDisplayNameScreen, child: (_, __) => SetDisplayName()),
       ];
 }

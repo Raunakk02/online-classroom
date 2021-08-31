@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:online_classroom/utils/providers.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../components/components.dart';
 import '../utils/utils.dart';
 
@@ -14,7 +15,6 @@ class CustomDrawer extends ConsumerStatefulWidget {
 }
 
 class _CustomDrawerState extends ConsumerState<CustomDrawer> {
-  // static final navigationKey = locator<NavigationService>().navigatorKey;
   List drawerItems = [];
 
   @override
@@ -37,32 +37,35 @@ class _CustomDrawerState extends ConsumerState<CustomDrawer> {
                 title: 'Classes',
                 subtitle: null,
                 onTap: () {
-                  Modular.to.pushNamedAndRemoveUntil('/', (_) => false);
+                  Modular.to.pushReplacementNamed(
+                    Routes.authState,
+                    forRoot: true,
+                  );
                 },
               ),
               DrawerListTile(
                 leading: Icon(Icons.calendar_today_outlined),
                 title: 'Calendar',
                 subtitle: null,
-                onTap: () {},
+                onTap: () async {
+                  int d = DateTime.now().day;
+                  int m = DateTime.now().month;
+                  int y = DateTime.now().year;
+                  final _url = 
+                      'https://calendar.google.com/calendar/r/month/$y/$m/$d';
+                  print(_url);
+                  if (await canLaunch(_url)) {
+                    await launch(_url);
+                  } else {
+                    throw 'Could not launch URL';
+                  }
+                },
               ),
               Divider(),
-              DrawerListTile(
-                leading: Icon(Icons.logout_rounded),
-                title: 'Logout',
-                subtitle: null,
-                onTap: FirebaseAuth.instance.signOut,
-              ),
               if (_classes.isNotEmpty) ...[
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Text("Enrolled"),
-                ),
-                DrawerListTile(
-                  leading: Icon(Icons.note_alt),
-                  title: 'To-do',
-                  subtitle: null,
-                  onTap: () {},
                 ),
                 ..._classes
                     .map((_class) => DrawerListTile(
@@ -75,7 +78,13 @@ class _CustomDrawerState extends ConsumerState<CustomDrawer> {
                         ))
                     .toList(),
                 Divider(),
-              ]
+              ],
+              DrawerListTile(
+                leading: Icon(Icons.logout_rounded),
+                title: 'Logout',
+                subtitle: null,
+                onTap: FirebaseAuth.instance.signOut,
+              ),
             ]),
           ),
         ],

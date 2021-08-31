@@ -9,4 +9,5 @@ export 'home.dart';
 export 'join_class.dart';
 export 'login.dart';
 export 'verify_email.dart';
+export 'set_display_name.dart';
 export 'sign_up_screen.dart';

@@ -73,16 +73,30 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Globals.kClassroomText,
         actions: [
-          Padding(
-            padding: Globals.kScreenPadding * 0.4,
-            child: CircleAvatar(
-              backgroundColor: ColorsUtils.kElevationColor,
-              foregroundColor: ColorsUtils.kTextColor,
-              child: Text(
-                FirebaseAuth.instance.currentUser!.email![0],
-                style: Globals.kBodyText1Style,
+          InkWell(
+            child: Padding(
+              padding: Globals.kScreenPadding * 0.4,
+              child: CircleAvatar(
+                backgroundColor: ColorsUtils.kElevationColor,
+                foregroundColor: ColorsUtils.kTextColor,
+                child: Text(
+                  FirebaseAuth.instance.currentUser!.displayName![0],
+                  style: Globals.kBodyText1Style,
+                ),
               ),
             ),
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (_) => CommonAlertDialog(
+                  "Currently signed in as",
+                  content: Text(
+                    'Name: ${FirebaseAuth.instance.currentUser!.displayName!}' +
+                        '\nEmail: ${FirebaseAuth.instance.currentUser!.email!}',
+                  ),
+                ),
+              );
+            },
           ),
         ],
       ),
