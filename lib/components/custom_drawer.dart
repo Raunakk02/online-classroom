@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:online_classroom/utils/providers.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../components/components.dart';
 import '../utils/utils.dart';
 
@@ -46,7 +47,19 @@ class _CustomDrawerState extends ConsumerState<CustomDrawer> {
                 leading: Icon(Icons.calendar_today_outlined),
                 title: 'Calendar',
                 subtitle: null,
-                onTap: () {},
+                onTap: () async {
+                  int d = DateTime.now().day;
+                  int m = DateTime.now().month;
+                  int y = DateTime.now().year;
+                  final _url = 
+                      'https://calendar.google.com/calendar/r/month/$y/$m/$d';
+                  print(_url);
+                  if (await canLaunch(_url)) {
+                    await launch(_url);
+                  } else {
+                    throw 'Could not launch URL';
+                  }
+                },
               ),
               Divider(),
               if (_classes.isNotEmpty) ...[
