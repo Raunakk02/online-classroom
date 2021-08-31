@@ -1,11 +1,38 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:online_classroom/objects/app_user.dart';
 import '../utils/utils.dart';
 import '../components/components.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  const HomeScreen(this._user, {Key? key}) : super(key: key);
+  final AppUser _user;
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState(_user);
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  late Widget _body;
+  AppUser user;
+
+  _HomeScreenState(this.user);
+
+  void _updateBody() {
+    setState(() {
+      _body = FutureBuilder<AppUser>(
+        future: user.updateClassCodes(),
+        builder: (_, __) => CommonAsyncSnapshotResponses<AppUser>(
+          __,
+          builder: (_user) {
+            user = _user;
+            return ClassesHomeList(user);
+          },
+        ),
+      );
+    });
+  }
 
   void _showOptions(BuildContext ctx) {
     showModalBottomSheet(
@@ -15,23 +42,29 @@ class HomeScreen extends StatelessWidget {
           children: [
             ListTile(
               title: Text('Create Class'),
-              onTap: () {
-                Modular.to.pop();
-                Modular.to.pushNamed(Routes.createClass);
+              onTap: () async {
+                await Modular.to.pushNamed(Routes.createClass, arguments: user);
+                _updateBody();
               },
             ),
             Divider(),
             ListTile(
               title: Text('Join Class'),
-              onTap: () {
-                Modular.to.pop();
-                Modular.to.pushNamed(Routes.joinClass);
+              onTap: () async {
+                await Modular.to.pushNamed(Routes.joinClass, arguments: user);
+                _updateBody();
               },
             ),
           ],
         );
       },
     );
+  }
+
+  @override
+  void initState() {
+    _body = ClassesHomeList(user);
+    super.initState();
   }
 
   @override
@@ -53,18 +86,10 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      drawer: CustomDrawer(
-        classes: [
-          'Ada',
-          'BCCS-2031',
-          'ISS',
-        ],
-      ),
-      body: ClassesHomeList(),
+      drawer: CustomDrawer(),
+      body: _body,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _showOptions(context);
-        },
+        onPressed: () => _showOptions(context),
         child: Icon(Icons.add),
       ),
     );

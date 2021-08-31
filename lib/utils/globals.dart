@@ -43,15 +43,21 @@ abstract class Globals {
   static final kBodyText3Style = GoogleFonts.montserrat(fontSize: 3.5.w);
   static final kHeading2Style = GoogleFonts.montserrat(fontSize: 5.w);
   static final kHeading1Style = GoogleFonts.montserrat(fontSize: 6.w);
+
   static getColorTextStyle(Color color) => GoogleFonts.montserrat(
         fontSize: 4.5.w,
         color: color,
       );
 
   static final kInputDecorationTheme = InputDecorationTheme(
-    fillColor: ColorsUtils.kBackgroundColor,
+    fillColor: ColorsUtils.kElevationColor,
+    filled: true,
+    errorStyle: kBodyText2Style.copyWith(
+      color: Colors.red,
+    ),
     border: OutlineInputBorder(
       borderSide: BorderSide.none,
+      borderRadius: kBorderRadius,
     ),
     hintStyle: kBodyText1Style,
   );
@@ -59,13 +65,6 @@ abstract class Globals {
   static final kSizedBox = SizedBox(
     height: Globals.screenWidth * 0.04,
   );
-
-  static kCustomDecoration(String label) => InputDecoration(
-        labelText: label,
-        filled: true,
-        fillColor: ColorsUtils.kElevationColor,
-        border: OutlineInputBorder(),
-      );
 
   static const kScreenPadding = const EdgeInsets.all(20);
 
@@ -105,4 +104,8 @@ abstract class Globals {
     },
     icon: Icon(Icons.chevron_left),
   );
+
+  static final String? Function(String?) kCommonValidator = (_) {
+    if (_?.isEmpty ?? true) return 'This Field is required';
+  };
 }

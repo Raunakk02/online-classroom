@@ -1,20 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:online_classroom/components/components.dart';
+import 'package:online_classroom/networks/class_group.dart';
+import 'package:online_classroom/objects/app_user.dart';
+import 'package:online_classroom/objects/class_group.dart';
 import 'package:online_classroom/utils/utils.dart';
 
 class CreateClassScreen extends StatefulWidget {
-  const CreateClassScreen({Key? key}) : super(key: key);
+  const CreateClassScreen(this.user, {Key? key}) : super(key: key);
+  final AppUser user;
 
   @override
   _CreateClassScreenState createState() => _CreateClassScreenState();
 }
 
 class _CreateClassScreenState extends State<CreateClassScreen> {
-  final formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
+  final _className = TextEditingController(text: ''),
+      _sectionName = TextEditingController(text: '');
 
-  void _onSubmit() {
-    if (formKey.currentState == null) return;
-    formKey.currentState!.validate();
+  void _onSubmit() async {
+    if (!(_formKey.currentState?.validate() ?? false)) return;
+    final _class = ClassGroup.create(
+      teacher: widget.user,
+      name: _className.text,
+      sectionName: _sectionName.text,
+    );
+    await showDialog(
+      context: context,
+      builder: (_) => FutureDialog<void>(
+        future: ClassNetworks.create(_class),
+        hasData: (_) => CommonAlertDialog('Successfully Created New Class'),
+      ),
+    );
+
+    Modular.to.pop(context);
   }
 
   @override
@@ -31,49 +51,38 @@ class _CreateClassScreenState extends State<CreateClassScreen> {
           'Create Class',
           style: Globals.kHeading1Style,
         ),
-        actions: [
-          ElevatedButton(
-            onPressed: () {
-              //TODO: implement create class functionality
-              _onSubmit();
-            },
-            child: Text(
-              'Create',
-              style: Globals.kBodyText1Style,
-            ),
-          ),
-        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
           padding: Globals.kScreenPadding * 1.8,
           child: Form(
-            key: formKey,
+            key: _formKey,
             child: Column(
               children: [
                 Globals.kSizedBox,
                 TextFormField(
-                  decoration: Globals.kCustomDecoration('Class Name'),
-                  validator: (val) {
-                    if (val == null || val.isEmpty) {
-                      return 'Cannot be blank';
-                    }
-                    return null;
-                  },
+                  style: Globals.kBodyText1Style,
+                  controller: _className,
+                  decoration: InputDecoration(hintText: 'Class Name'),
+                  validator: Globals.kCommonValidator,
                 ),
                 Globals.kSizedBox,
                 TextFormField(
-                  decoration: Globals.kCustomDecoration('Section Name'),
-                  validator: (val) {
-                    if (val == null || val.isEmpty) {
-                      return 'Cannot be blank';
-                    }
-                    return null;
-                  },
+                  style: Globals.kBodyText1Style,
+                  controller: _sectionName,
+                  decoration: InputDecoration(hintText: 'Section Name'),
+                  validator: Globals.kCommonValidator,
                 ),
               ],
             ),
           ),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: _onSubmit,
+        label: Text(
+          'Submit',
+          style: Globals.kBodyText3Style,
         ),
       ),
     );

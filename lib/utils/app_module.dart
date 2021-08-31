@@ -7,9 +7,11 @@ class AppModule extends Module {
   // TODO: implement routes
   List<ModularRoute> get routes => [
         ChildRoute(Routes.authState, child: (_, __) => AuthState()),
-        ChildRoute(Routes.homeScreen, child: (_, __) => HomeScreen()),
-        ChildRoute(Routes.joinClass, child: (_, __) => JoinClassScreen()),
-        ChildRoute(Routes.createClass, child: (_, __) => CreateClassScreen()),
-        ChildRoute(Routes.classScreen, child: (_, __) => ClassScreen()),
+        ChildRoute(Routes.homeScreen, child: (_, __) => HomeScreen(__.data)),
+        ChildRoute(Routes.joinClass,
+            child: (_, __) => JoinClassScreen(__.data)),
+        ChildRoute(Routes.createClass,
+            child: (_, __) => CreateClassScreen(__.data)),
+        ChildRoute(Routes.classScreen, child: (_, __) => ClassScreen(__.data)),
       ];
 }

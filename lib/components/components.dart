@@ -9,4 +9,4 @@ export 'custom_pop_up_menu.dart';
 export 'drawer_list_tile.dart';
 export 'future_dialog.dart';
 export 'loading_dialog.dart';
-export 'loading_screen.dart';
+export '../templates/loading_screen.dart';
