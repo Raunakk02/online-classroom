@@ -20,7 +20,7 @@ The process to run this project on your system is quite simple. Here's what you 
 
 1. Clone and change into the project.
     ```sh
-    $ git clone https://github.com/Raunakk02/maser.git
+    $ git clone https://github.com/Raunakk02/online-classroom.git
     $ cd maser
     ```
 1. Install packages
